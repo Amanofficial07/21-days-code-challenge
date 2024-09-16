@@ -1,0 +1,35 @@
+struct Node
+{
+    int data;
+    struct Node* left;
+    struct Node* right;
+
+    Node(int x){
+        data = x;
+        left = right = NULL;
+    }
+};
+class Solution {
+  public:
+  
+    void func(Node* root, Node*& head, Node*& lastNode){
+        
+        if(!root) return;
+        func(root->left,head, lastNode);
+        if(!head) head = root;
+        if(lastNode) lastNode->right = root;
+        root->left = lastNode;
+        lastNode = root;
+        func(root->right,head, lastNode);
+        
+    }
+    
+    Node* bToDLL(Node* root) {
+        Node* head = NULL;
+        Node* lastNode = NULL;
+        
+        func(root,head,lastNode);
+        
+        return head;
+    }
+};
